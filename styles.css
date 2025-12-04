@@ -315,6 +315,7 @@ h1 {
 
 .work-link {
   font-size: 1.7rem;
+  color: var(--dark-color);
   text-decoration: underline;
 }
 
