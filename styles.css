@@ -36,6 +36,17 @@ body {
   font-style: italic;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 .opening {
   position: absolute;
   display: grid;
@@ -131,8 +142,10 @@ header ul {
   gap: 0.7rem;
 }
 
-header ul li {
+header ul li a {
   font-size: 1.7rem;
+  color: var(--white);
+  cursor: pointer;
 }
 
 h1 {
