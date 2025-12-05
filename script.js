@@ -1,4 +1,9 @@
-gsap.registerPlugin(MorphSVGPlugin, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(
+  MorphSVGPlugin,
+  ScrollTrigger,
+  ScrollSmoother,
+  ScrollToPlugin
+);
 
 document.addEventListener("DOMContentLoaded", () => {
   const smoother = ScrollSmoother.create({
@@ -70,10 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     openingTimeline.to(
-      [".hero-animated-text, .fixed-logo svg"],
+      [".hero-animated-text, .fixed-logo"],
       {
         duration: 1.7,
         opacity: 1,
+        pointerEvents: "auto",
         ease: "power4.inOut",
       },
       "-=1.3"
@@ -172,7 +178,27 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function footerWordAnimation() {
+    let footerTimeline = gsap.timeline({ repeat: -1 });
+
+    footerTimeline.to(".first-footer-svg", {
+      x: "-117%",
+      ease: "none",
+      duration: 7,
+    });
+    footerTimeline.to(
+      ".second-footer-svg",
+      {
+        x: "0",
+        ease: "none",
+        duration: 7,
+      },
+      "<"
+    );
+  }
+
   pauseScroll();
+  footerWordAnimation();
 
   ScrollTrigger.matchMedia({
     "(min-width: 1024px)": function () {
@@ -324,5 +350,24 @@ document.addEventListener("DOMContentLoaded", () => {
         y: 0,
       });
     },
+  });
+
+  function scrollToId(id) {
+    const element = document.querySelector(`#${id}`);
+    if (element) {
+      gsap.to(window, {
+        scrollTo: element,
+        duration: 0.7,
+        ease: "power4.inOut",
+      });
+    }
+  }
+
+  document.querySelectorAll(".scroll-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.getAttribute("data-scroll");
+      scrollToId(id);
+    });
   });
 });
