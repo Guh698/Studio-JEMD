@@ -2,7 +2,8 @@ gsap.registerPlugin(
   MorphSVGPlugin,
   ScrollTrigger,
   ScrollSmoother,
-  ScrollToPlugin
+  ScrollToPlugin,
+  SplitText
 );
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -198,12 +199,58 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function initHoverEffects() {
+    const links = document.querySelectorAll(".link");
+    const splits = [];
+
+    links.forEach((link) => {
+      let splitLink = new SplitText(link, { type: "words, chars" });
+      splits.push(splitLink);
+
+      let charLinks = splitLink.chars;
+
+      const hoverAnimation = () => {
+        let linksTimeline = gsap.timeline({ overwrite: true });
+
+        linksTimeline.to(charLinks, {
+          opacity: 0,
+          scale: 1.7,
+          stagger: { each: 0.02, from: "left" },
+          duration: 0.3,
+        });
+
+        linksTimeline.to(
+          charLinks,
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: { each: 0.02, from: "left" },
+            duration: 0.3,
+          },
+          "-=0.1"
+        );
+      };
+      link.addEventListener("mouseenter", hoverAnimation);
+      link._hoverFn = hoverAnimation;
+    });
+
+    return () => {
+      links.forEach((link) => {
+        if (link._hoverFn) {
+          link.removeEventListener("mouseenter", link._hoverFn);
+        }
+      });
+      splits.forEach((split) => split.revert());
+    };
+  }
+
   pauseScroll();
   footerWordAnimation();
 
   ScrollTrigger.matchMedia({
     "(min-width: 1024px)": function () {
       opening();
+      const cleanupHovers = initHoverEffects();
 
       let servicesTimeline = gsap.timeline({
         scrollTrigger: {
@@ -305,6 +352,10 @@ document.addEventListener("DOMContentLoaded", () => {
         scaleX: 1,
         y: 0,
       });
+
+      return () => {
+        cleanupHovers();
+      };
     },
     "(max-width: 1024px)": function () {
       mobileOpening();
