@@ -522,7 +522,6 @@ footer svg {
   }
 
   .service-cases-wrapper {
-    border: 1px solid var(--white);
     height: max-content;
     flex-direction: column;
   }
