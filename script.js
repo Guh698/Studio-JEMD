@@ -168,10 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     mobileOpeningTl.to(
-      [".hero-animated-text, .fixed-logo svg"],
+      [".hero-animated-text, .fixed-logo"],
       {
         duration: 1.7,
         opacity: 1,
+        pointerEvents: "auto",
         ease: "power4.inOut",
       },
       "-=1.3"

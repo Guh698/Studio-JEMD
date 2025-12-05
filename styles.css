@@ -445,6 +445,18 @@ footer svg {
   font-weight: 700;
 }
 
+.footer-credits {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 4rem;
+  width: 100%;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+}
+
 @media (max-width: 1024px) {
   .rect1,
   .rect2,
@@ -610,6 +622,7 @@ footer svg {
     flex-direction: column;
     padding: 3rem;
     padding-top: 7rem;
+    padding-bottom: 7rem;
     height: 77%;
   }
 
@@ -708,5 +721,9 @@ footer svg {
 
   .footer-social a {
     font-size: 2.3rem;
+  }
+
+  .footer-credits {
+    font-size: 1.7rem;
   }
 }
