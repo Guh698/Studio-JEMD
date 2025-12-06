@@ -22,50 +22,81 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function opening() {
-    let openingTimeline = gsap.timeline({
+    let mobileOpeningTl = gsap.timeline({
       onComplete: () => {
         resumeScroll();
       },
     });
-    openingTimeline.to("#path38", {
-      morphSVG: "#path38-6",
+    mobileOpeningTl.to(".mobile-rect1", {
+      y: "-15%",
+      scaleX: 1.3,
+      scale: 1.1,
+      clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+      rotate: "170deg",
       duration: 0.7,
       ease: "power2.inOut",
       delay: 1,
     });
-    openingTimeline.to(
-      "#path38-8",
-      { morphSVG: "#path38-8-6", duration: 0.7, ease: "power2.inOut" },
-      "<"
-    );
-    openingTimeline.to(
-      "#path38-23",
-      { morphSVG: "#path38-23-0", duration: 0.7, ease: "power2.inOut" },
-      "<"
-    );
-    openingTimeline.to(
-      "#path38-89",
-      { morphSVG: "#path38-89-0", duration: 0.7, ease: "power2.inOut" },
+
+    mobileOpeningTl.to(
+      ".mobile-rect2",
+      {
+        y: "60%",
+        scaleX: 1.5,
+        scale: 1.3,
+        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+        rotate: "25deg",
+        duration: 0.7,
+        ease: "power2.inOut",
+      },
       "<"
     );
 
-    openingTimeline.to(".plane", {
-      x: window.innerWidth * +1.13,
+    mobileOpeningTl.to(
+      ".mobile-rect3",
+      {
+        y: "-50%",
+        scaleX: 1.7,
+        scale: 1.3,
+        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+        rotate: "195deg",
+        duration: 0.7,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+
+    mobileOpeningTl.to(
+      ".mobile-rect4",
+      {
+        y: "50%",
+        scaleX: 1.7,
+        scale: 1.3,
+        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+        rotate: "-15deg",
+        duration: 0.7,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+
+    mobileOpeningTl.to(".plane", {
+      x: window.innerWidth * +1.5,
       duration: 2.7,
       ease: "power3.inOut",
     });
 
-    openingTimeline.to(
-      [".rect1, .rect2, .rect3, .rect4"],
+    mobileOpeningTl.to(
+      [".mobile-rect1, .mobile-rect2, .mobile-rect3, .mobile-rect4"],
       {
-        scale: 3.7,
+        scale: 3,
         duration: 1.3,
         ease: "power2.inOut",
       },
       "-=1"
     );
 
-    openingTimeline.to(
+    mobileOpeningTl.to(
       ".opening",
       {
         duration: 1.7,
@@ -75,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "-=.3"
     );
 
-    openingTimeline.to(
+    mobileOpeningTl.to(
       [".hero-animated-text, .fixed-logo"],
       {
         duration: 1.7,
@@ -316,22 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       worksTimeline.to(
         ".work-case3",
-        {
-          scale: 1,
-          y: 0,
-          rotate: 0,
-          ease: "power2.out",
-        },
-        "<"
-      );
-
-      worksTimeline.to(".work-cases-wrapper", {
-        y: window.innerHeight * -2.1 - 90,
-        ease: "none",
-      });
-
-      worksTimeline.to(
-        ".work-case4",
         {
           scale: 1,
           y: 0,

@@ -73,9 +73,10 @@ body {
 .rect4 {
   height: 100%;
   width: 100%;
+  display: none;
 }
 
-.rect1 {
+/*.rect1 {
   grid-area: rect1;
 }
 
@@ -89,7 +90,7 @@ body {
 
 .rect4 {
   grid-area: rect4;
-}
+}*/
 
 .rectMorph {
   display: none;
@@ -99,8 +100,35 @@ body {
 .mobile-rect2,
 .mobile-rect3,
 .mobile-rect4 {
-  display: none;
-  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  border: 3px solid var(--white);
+  background-color: var(--white);
+  display: flex;
+}
+
+.mobile-rect1 {
+  grid-area: rect1;
+  transform: rotate(180deg) translateY(0%) scaleX(1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mobile-rect2 {
+  grid-area: rect2;
+  transform: rotate(0deg) translateY(0%) scaleX(1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mobile-rect3 {
+  grid-area: rect3;
+  transform: rotate(180deg) translateY(0%) scale(1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mobile-rect4 {
+  grid-area: rect4;
+  transform: rotate(0deg) translateY(0%) scale(1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .plane {
@@ -414,7 +442,7 @@ footer svg {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 67%;
+  height: 63%;
   z-index: 3;
 }
 
