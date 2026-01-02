@@ -100,18 +100,19 @@ body {
 .mobile-rect2,
 .mobile-rect3,
 .mobile-rect4 {
-  position: absolute;
   height: 100%;
   width: 100%;
   background-color: var(--white);
   display: grid;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform, clip-path;
 }
 
 .mobile-rect1 {
   grid-area: rect1;
   transform: rotate(180deg) translateY(0%) scaleX(1);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  z-index: 3;
 }
 
 .mobile-rect2 {
@@ -130,7 +131,6 @@ body {
   grid-area: rect4;
   transform: rotate(0deg) translateY(0%) scale(1);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  z-index: 3;
 }
 
 .plane {
