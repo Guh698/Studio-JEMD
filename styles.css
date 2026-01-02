@@ -100,11 +100,11 @@ body {
 .mobile-rect2,
 .mobile-rect3,
 .mobile-rect4 {
+  position: absolute;
   height: 100%;
   width: 100%;
-  border: 3px solid var(--white);
   background-color: var(--white);
-  display: flex;
+  display: grid;
 }
 
 .mobile-rect1 {
@@ -493,41 +493,6 @@ footer svg {
   .rect3,
   .rect4 {
     display: none;
-  }
-
-  .mobile-rect1,
-  .mobile-rect2,
-  .mobile-rect3,
-  .mobile-rect4 {
-    height: 100%;
-    width: 100%;
-    border: 3px solid var(--white);
-    background-color: var(--white);
-    display: flex;
-  }
-
-  .mobile-rect1 {
-    grid-area: rect1;
-    transform: rotate(180deg) translateY(0%) scaleX(1);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .mobile-rect2 {
-    grid-area: rect2;
-    transform: rotate(0deg) translateY(0%) scaleX(1);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .mobile-rect3 {
-    grid-area: rect3;
-    transform: rotate(180deg) translateY(0%) scale(1);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .mobile-rect4 {
-    grid-area: rect4;
-    transform: rotate(0deg) translateY(0%) scale(1);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
   .plane {
