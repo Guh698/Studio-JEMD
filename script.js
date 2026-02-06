@@ -3,7 +3,7 @@ gsap.registerPlugin(
   ScrollTrigger,
   ScrollSmoother,
   ScrollToPlugin,
-  SplitText
+  SplitText,
 );
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(".plane", {
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.3,
         ease: "power2.inOut",
       },
-      "-=1"
+      "-=1",
     );
 
     mobileOpeningTl.to(
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         y: "-100%",
         ease: "power4.inOut",
       },
-      "-=.3"
+      "-=.3",
     );
 
     mobileOpeningTl.to(
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pointerEvents: "auto",
         ease: "power4.inOut",
       },
-      "-=1.3"
+      "-=1.3",
     );
   }
 
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.7,
         ease: "power2.inOut",
       },
-      "<"
+      "<",
     );
 
     mobileOpeningTl.to(".plane", {
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.3,
         ease: "power2.inOut",
       },
-      "-=1"
+      "-=1",
     );
 
     mobileOpeningTl.to(
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         y: "-100%",
         ease: "power4.inOut",
       },
-      "-=.3"
+      "-=.3",
     );
 
     mobileOpeningTl.to(
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pointerEvents: "auto",
         ease: "power4.inOut",
       },
-      "-=1.3"
+      "-=1.3",
     );
   }
 
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "none",
         duration: 7,
       },
-      "<"
+      "<",
     );
   }
 
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
             stagger: { each: 0.02, from: "left" },
             duration: 0.3,
           },
-          "-=0.1"
+          "-=0.1",
         );
       };
       link.addEventListener("mouseenter", hoverAnimation);
@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
           rotate: 0,
           ease: "power2.out",
         },
-        "<"
+        "<",
       );
 
       servicesTimeline.to(".service-cases-wrapper", {
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
           rotate: 0,
           ease: "power2.out",
         },
-        "<"
+        "<",
       );
 
       let worksTimeline = gsap.timeline({
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
           rotate: 0,
           ease: "power2.out",
         },
-        "<"
+        "<",
       );
 
       gsap.to(".footer-overlay", {
