@@ -32,8 +32,9 @@ body {
 }
 
 .italic {
-  font-family: Playfair Display, serif;
+  font-family: "Bodoni Moda", serif;
   font-style: italic;
+  font-weight: 700;
 }
 
 .visually-hidden {
@@ -151,11 +152,19 @@ body {
   cursor: pointer;
   pointer-events: none;
   opacity: 0;
+  text-decoration: none;
 }
 
-.fixed-logo svg {
-  width: 4.3rem;
-  height: 100%;
+.fixed-logo a {
+  text-decoration: none;
+}
+
+.fixed-logo span {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 700;
+  color: var(--white);
 }
 
 .hero-animated-text {
@@ -186,7 +195,15 @@ header ul li a {
 }
 
 h1 {
+  font-family: "Bodoni Moda", serif;
+  font-weight: 700;
   font-size: 13rem;
+}
+
+h2 {
+  font-family: "Bodoni Moda", serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .hero-text {
@@ -348,6 +365,7 @@ h1 {
 
 .work-status {
   font-size: 1.7rem;
+  cursor: default;
 }
 
 .work-link {
@@ -384,10 +402,12 @@ h1 {
 .about-poster {
   width: 50%;
   height: 100%;
-}
-
-.about-poster svg {
-  width: 70%;
+  background-color: var(--dark-color);
+  color: var(--white);
+  font-size: 7rem;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .about h2 {
