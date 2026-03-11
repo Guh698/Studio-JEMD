@@ -597,6 +597,10 @@ footer svg {
     height: 50vh;
   }
 
+  .case-name {
+    font-size: 1.7rem;
+  }
+
   .work-case2,
   .work-case3,
   .work-case4,
