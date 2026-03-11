@@ -7,210 +7,97 @@ gsap.registerPlugin(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
+  // 1. Initialize Smoother
   const smoother = ScrollSmoother.create({
     wrapper: "#smooth-wrapper",
     content: "#smooth-content",
     smooth: 1,
+    effects: true,
   });
 
-  function pauseScroll() {
-    smoother.paused(true);
-  }
+  const pauseScroll = () => cleaner(true);
+  const resumeScroll = () => smoother.paused(false);
 
-  function resumeScroll() {
-    smoother.paused(false);
-  }
-
-  function opening() {
-    let mobileOpeningTl = gsap.timeline({
+  // 2. Consolidated Opening (Dry & Clean)
+  function runOpening(isMobile) {
+    const tl = gsap.timeline({
       onComplete: () => {
         resumeScroll();
+        ScrollTrigger.refresh(); // Crucial for layout accuracy
       },
     });
-    mobileOpeningTl.to(".mobile-rect1", {
+
+    const rects = ".mobile-rect1, .mobile-rect2, .mobile-rect3, .mobile-rect4";
+
+    tl.to(".mobile-rect1", {
       y: "-15%",
-      scaleX: 1.3,
-      scale: 1.1,
+      scaleX: isMobile ? 1.5 : 1.3,
+      rotate: 170,
       clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-      rotate: "170deg",
       duration: 0.7,
       ease: "power2.inOut",
       delay: 1,
-    });
-
-    mobileOpeningTl.to(
-      ".mobile-rect2",
-      {
-        y: "60%",
-        scaleX: 1.5,
-        scale: 1.3,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "25deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(
-      ".mobile-rect3",
-      {
-        y: "-50%",
-        scaleX: 1.7,
-        scale: 1.3,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "195deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(
-      ".mobile-rect4",
-      {
-        y: "50%",
-        scaleX: 1.7,
-        scale: 1.3,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "-15deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(".plane", {
-      x: window.innerWidth * +1.5,
-      duration: 2.7,
-      ease: "power3.inOut",
-    });
-
-    mobileOpeningTl.to(
-      [".mobile-rect1, .mobile-rect2, .mobile-rect3, .mobile-rect4"],
-      {
-        scale: 3,
-        duration: 1.3,
-        ease: "power2.inOut",
-      },
-      "-=1",
-    );
-
-    mobileOpeningTl.to(
-      ".opening",
-      {
-        duration: 1.7,
-        y: "-100%",
-        ease: "power4.inOut",
-      },
-      "-=.3",
-    );
-
-    mobileOpeningTl.to(
-      [".hero-animated-text, .fixed-logo"],
-      {
-        duration: 1.7,
-        opacity: 1,
-        pointerEvents: "auto",
-        ease: "power4.inOut",
-      },
-      "-=1.3",
-    );
+    })
+      .to(
+        ".mobile-rect2",
+        {
+          y: isMobile ? "30%" : "60%",
+          scaleX: 1.5,
+          rotate: 25,
+          clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+          duration: 0.7,
+          ease: "power2.inOut",
+        },
+        "<",
+      )
+      .to(
+        ".mobile-rect3",
+        {
+          y: "-50%",
+          scaleX: 1.7,
+          rotate: 195,
+          clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+          duration: 0.7,
+          ease: "power2.inOut",
+        },
+        "<",
+      )
+      .to(
+        ".mobile-rect4",
+        {
+          y: "50%",
+          scaleX: 1.7,
+          rotate: -15,
+          clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
+          duration: 0.7,
+          ease: "power2.inOut",
+        },
+        "<",
+      )
+      .to(".plane", {
+        x: () => window.innerWidth * 1.5,
+        duration: 2.7,
+        ease: "power3.inOut",
+      })
+      .to(rects, { scale: 3, duration: 1.3, ease: "power2.inOut" }, "-=1")
+      .to(
+        ".opening",
+        { y: "-100%", duration: 1.7, ease: "power4.inOut" },
+        "-=.3",
+      )
+      .to(
+        ".hero-animated-text, .fixed-logo",
+        {
+          opacity: 1,
+          pointerEvents: "auto",
+          duration: 1.7,
+          ease: "power4.inOut",
+        },
+        "-=1.3",
+      );
   }
 
-  function mobileOpening() {
-    let mobileOpeningTl = gsap.timeline({
-      onComplete: () => {
-        resumeScroll();
-      },
-    });
-    mobileOpeningTl.to(".mobile-rect1", {
-      y: "-15%",
-      scaleX: 1.5,
-      clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-      rotate: "170deg",
-      duration: 0.7,
-      ease: "power2.inOut",
-      delay: 1,
-    });
-
-    mobileOpeningTl.to(
-      ".mobile-rect2",
-      {
-        y: "30%",
-        scaleX: 1.5,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "25deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(
-      ".mobile-rect3",
-      {
-        y: "-50%",
-        scaleX: 1.7,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "195deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(
-      ".mobile-rect4",
-      {
-        y: "50%",
-        scaleX: 1.7,
-        clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)",
-        rotate: "-15deg",
-        duration: 0.7,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
-
-    mobileOpeningTl.to(".plane", {
-      x: window.innerWidth * +1.5,
-      duration: 2.7,
-      ease: "power3.inOut",
-    });
-
-    mobileOpeningTl.to(
-      [".mobile-rect1, .mobile-rect2, .mobile-rect3, .mobile-rect4"],
-      {
-        scale: 3,
-        duration: 1.3,
-        ease: "power2.inOut",
-      },
-      "-=1",
-    );
-
-    mobileOpeningTl.to(
-      ".opening",
-      {
-        duration: 1.7,
-        y: "-100%",
-        ease: "power4.inOut",
-      },
-      "-=.3",
-    );
-
-    mobileOpeningTl.to(
-      [".hero-animated-text, .fixed-logo"],
-      {
-        duration: 1.7,
-        opacity: 1,
-        pointerEvents: "auto",
-        ease: "power4.inOut",
-      },
-      "-=1.3",
-    );
-  }
-
+  // 3. Optimized Footer Marquee
   function footerWordAnimation() {
     let footerTimeline = gsap.timeline({ repeat: -1 });
 
@@ -230,211 +117,128 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  // 4. Hover Effects with Revert cleanup
   function initHoverEffects() {
     const links = document.querySelectorAll(".link");
     const splits = [];
 
     links.forEach((link) => {
-      let splitLink = new SplitText(link, { type: "words, chars" });
-      splits.push(splitLink);
+      const splitInstance = new SplitText(link, { type: "chars" });
+      splits.push(splitInstance);
 
-      let charLinks = splitLink.chars;
-
-      const hoverAnimation = () => {
-        let linksTimeline = gsap.timeline({ overwrite: true });
-
-        linksTimeline.to(charLinks, {
-          opacity: 0,
-          scale: 1.7,
-          stagger: { each: 0.02, from: "left" },
-          duration: 0.3,
-        });
-
-        linksTimeline.to(
-          charLinks,
-          {
-            opacity: 1,
-            scale: 1,
-            stagger: { each: 0.02, from: "left" },
+      link.addEventListener("mouseenter", () => {
+        gsap
+          .timeline({ overwrite: "auto" })
+          .to(splitInstance.chars, {
+            opacity: 0,
+            scale: 1.7,
+            stagger: 0.02,
             duration: 0.3,
-          },
-          "-=0.1",
-        );
-      };
-      link.addEventListener("mouseenter", hoverAnimation);
-      link._hoverFn = hoverAnimation;
-    });
-
-    return () => {
-      links.forEach((link) => {
-        if (link._hoverFn) {
-          link.removeEventListener("mouseenter", link._hoverFn);
-        }
+          })
+          .to(
+            splitInstance.chars,
+            { opacity: 1, scale: 1, stagger: 0.02, duration: 0.3 },
+            "-=0.1",
+          );
       });
-      splits.forEach((split) => split.revert());
-    };
+    });
+    return () => splits.forEach((s) => s.revert());
   }
 
-  pauseScroll();
+  // 5. Execution & Responsive Logic
+  smoother.paused(true);
   footerWordAnimation();
 
   ScrollTrigger.matchMedia({
     "(min-width: 1024px)": function () {
-      opening();
-      const cleanupHovers = initHoverEffects();
+      runOpening(false);
+      const cleanup = initHoverEffects();
 
-      let servicesTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".services",
-          start: "center center",
-          end: "+=2700",
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
+      // Desktop Services (using function-based values for resize safety)
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".services",
+            start: "center center",
+            end: "+=2700",
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+        .to(".service-cases-wrapper", {
+          x: () => (window.innerWidth + 30) * -1,
+          ease: "none",
+        })
+        .to(".case2", { scale: 1, rotate: 0 }, "<")
+        .to(".service-cases-wrapper", {
+          x: () => (window.innerWidth * 2 + 60) * -1,
+          ease: "none",
+        })
+        .to(".case3", { scale: 1, rotate: 0 }, "<");
 
-      servicesTimeline.to(".service-cases-wrapper", {
-        x: window.innerWidth * -1 - 30,
-        ease: "none",
-      });
+      // Desktop Works
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".works",
+            start: "center center",
+            end: "+=1300",
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+        .to(".work-cases-wrapper", {
+          y: () => (window.innerHeight * 0.7 + 30) * -1,
+          ease: "none",
+        })
+        .to(".work-cases-wrapper", {
+          y: () => (window.innerHeight * 1.4 + 60) * -1,
+          ease: "none",
+        })
+        .to(".work-case3", { scale: 1, y: 0, rotate: 0 }, "<");
 
-      servicesTimeline.to(
-        ".case2",
-        {
-          scale: 1,
-          rotate: 0,
-          ease: "power2.out",
-        },
-        "<",
-      );
-
-      servicesTimeline.to(".service-cases-wrapper", {
-        x: window.innerWidth * -2 - 60,
-        ease: "none",
-      });
-
-      servicesTimeline.to(
-        ".case3",
-        {
-          scale: 1,
-          rotate: 0,
-          ease: "power2.out",
-        },
-        "<",
-      );
-
-      let worksTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".works",
-          start: "center center",
-          end: "+=1300",
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      worksTimeline.to(".work-cases-wrapper", {
-        y: window.innerHeight * -0.7 - 30,
-        ease: "none",
-      });
-
-      worksTimeline.to(".work-cases-wrapper", {
-        y: window.innerHeight * -1.4 - 60,
-        ease: "none",
-      });
-
-      worksTimeline.to(
-        ".work-case3",
-        {
-          scale: 1,
-          y: 0,
-          rotate: 0,
-          ease: "power2.out",
-        },
-        "<",
-      );
-
-      gsap.to(".footer-overlay", {
-        scrollTrigger: {
-          trigger: ".about",
-          start: "center center",
-          scrub: true,
-        },
-        rotateY: 0,
-        rotateX: 0,
-        scaleX: 1,
-        y: 0,
-      });
-
-      return () => {
-        cleanupHovers();
-      };
+      return () => cleanup();
     },
-    "(max-width: 1024px)": function () {
-      mobileOpening();
-      const servicesCards = document.querySelectorAll(".service-case");
-      const workCards = document.querySelectorAll(".work-case");
 
-      servicesCards.forEach((serviceCard) => {
-        gsap.to(serviceCard, {
-          scrollTrigger: {
-            trigger: serviceCard,
-            start: "top bottom",
-            end: "top center",
-            scrub: true,
-          },
-          rotate: 0,
-          scaleX: 1,
-          y: 0,
+    "(max-width: 1023px)": function () {
+      runOpening(true);
+      [".service-case", ".work-case"].forEach((selector) => {
+        gsap.utils.toArray(selector).forEach((card) => {
+          gsap.to(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom",
+              end: "top center",
+              scrub: true,
+            },
+            rotate: 0,
+            scaleX: 1,
+            y: 0,
+          });
         });
-      });
-
-      workCards.forEach((workCard) => {
-        gsap.to(workCard, {
-          scrollTrigger: {
-            trigger: workCard,
-            start: "top bottom",
-            end: "top center",
-            scrub: true,
-          },
-          rotate: 0,
-          scaleX: 1,
-          y: 0,
-        });
-      });
-
-      gsap.to(".footer-overlay", {
-        scrollTrigger: {
-          trigger: ".about",
-          start: "center center",
-          scrub: true,
-        },
-        rotateY: 0,
-        rotateX: 0,
-        scaleX: 1,
-        y: 0,
       });
     },
   });
 
-  function scrollToId(id) {
-    const element = document.querySelector(`#${id}`);
-    if (element) {
-      gsap.to(window, {
-        scrollTo: element,
-        duration: 0.7,
-        ease: "power4.inOut",
-      });
-    }
-  }
+  // Common Footer Animation
+  gsap.to(".footer-overlay", {
+    scrollTrigger: { trigger: ".about", start: "center center", scrub: true },
+    rotateY: 0,
+    rotateX: 0,
+    scaleX: 1,
+    y: 0,
+  });
 
+  // Smooth Scroll Anchor Handling
   document.querySelectorAll(".scroll-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      const id = link.getAttribute("data-scroll");
-      scrollToId(id);
+      const target = document.querySelector(
+        `#${link.getAttribute("data-scroll")}`,
+      );
+      if (target) smoother.scrollTo(target, true, "center center");
     });
   });
 });
