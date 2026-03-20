@@ -7,7 +7,6 @@ gsap.registerPlugin(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Initialize Smoother
   const smoother = ScrollSmoother.create({
     wrapper: "#smooth-wrapper",
     content: "#smooth-content",
@@ -18,13 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const pauseScroll = () => cleaner(true);
   const resumeScroll = () => smoother.paused(false);
 
-  // 2. Consolidated Opening (Dry & Clean)
   function runOpening(isMobile) {
     const tl = gsap.timeline({
       onComplete: () => {
         resumeScroll();
-        ScrollTrigger.refresh(); // Crucial for layout accuracy
+        ScrollTrigger.refresh();
       },
+    });
+
+    const words = document.querySelectorAll(".hero-animated-text");
+    const splits = [];
+
+    const splitInstance = new SplitText(words, { type: "words, chars" });
+    splits.push(splitInstance);
+
+    gsap.set(splitInstance.chars, {
+      opacity: 0,
+      scale: 1.7,
     });
 
     const rects = ".mobile-rect1, .mobile-rect2, .mobile-rect3, .mobile-rect4";
@@ -86,18 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
         "-=.3",
       )
       .to(
-        ".hero-animated-text, .fixed-logo",
+        splitInstance.chars,
         {
           opacity: 1,
-          pointerEvents: "auto",
-          duration: 1.7,
-          ease: "power4.inOut",
+          scale: 1,
+          stagger: { amount: 0.7, from: "random" },
         },
-        "-=1.3",
+        "-=0.7",
       );
   }
 
-  // 3. Optimized Footer Marquee
   function footerWordAnimation() {
     let footerTimeline = gsap.timeline({ repeat: -1 });
 
@@ -117,44 +124,193 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // 4. Hover Effects with Revert cleanup
   function initHoverEffects() {
     const links = document.querySelectorAll(".link");
+    const enquiriesBtn = document.querySelector(".enquire");
     const splits = [];
 
     links.forEach((link) => {
       const splitInstance = new SplitText(link, { type: "chars" });
       splits.push(splitInstance);
 
-      link.addEventListener("mouseenter", () => {
-        gsap
-          .timeline({ overwrite: "auto" })
-          .to(splitInstance.chars, {
-            opacity: 0,
-            scale: 1.7,
-            stagger: 0.02,
-            duration: 0.3,
-          })
-          .to(
-            splitInstance.chars,
-            { opacity: 1, scale: 1, stagger: 0.02, duration: 0.3 },
-            "-=0.1",
-          );
-      });
+      if (link === enquiriesBtn) {
+        link.addEventListener("mouseenter", () => {
+          gsap
+            .timeline({ overwrite: "auto" })
+            .to(splitInstance.chars, {
+              opacity: 0,
+              scale: 1.3,
+              stagger: 0.02,
+              duration: 0.27,
+            })
+            .to(
+              splitInstance.chars,
+              { opacity: 1, scale: 1, stagger: 0.02, duration: 0.3 },
+              "-=0.1",
+            );
+          gsap.to(enquiriesBtn, { scale: 1.03, duration: 0.3 });
+        });
+        link.addEventListener("mouseleave", () => {
+          gsap.to(enquiriesBtn, { scale: 1, duration: 0.3 });
+        });
+      } else {
+        link.addEventListener("mouseenter", () => {
+          gsap
+            .timeline({ overwrite: "auto" })
+            .to(splitInstance.chars, {
+              opacity: 0,
+              scale: 1.7,
+              stagger: 0.02,
+              duration: 0.3,
+            })
+            .to(
+              splitInstance.chars,
+              { opacity: 1, scale: 1, stagger: 0.02, duration: 0.3 },
+              "-=0.1",
+            );
+        });
+      }
     });
     return () => splits.forEach((s) => s.revert());
   }
 
-  // 5. Execution & Responsive Logic
-  smoother.paused(true);
+  /*smoother.paused(true);*/
   footerWordAnimation();
 
   ScrollTrigger.matchMedia({
     "(min-width: 1024px)": function () {
-      runOpening(false);
+      gsap.set(".opening", { display: "none" });
+      /*runOpening(false);*/
       const cleanup = initHoverEffects();
 
-      // Desktop Services (using function-based values for resize safety)
+      // --- HERO SECTION ---
+      const words = document.querySelectorAll(".hero-animated-text");
+      const splitInstance = new SplitText(words, { type: "words, chars" });
+
+      ScrollTrigger.create({
+        trigger: ".hero",
+        start: "bottom 70%",
+        onEnter() {
+          gsap.to(splitInstance.chars, {
+            opacity: 0,
+            scale: 1.3,
+            stagger: { amount: 0.5, from: "random" },
+            overwrite: true,
+          });
+        },
+        onLeaveBack() {
+          gsap.to(splitInstance.chars, {
+            opacity: 1,
+            scale: 1,
+            stagger: { amount: 0.5, from: "random" },
+            overwrite: true,
+          });
+        },
+      });
+
+      // --- WORKFLOW SECTION (The Fix) ---
+      const workflowContent = [
+        {
+          title: "I. Le Prélude & Alignment",
+          text: "Great design begins with great conversation. We start by exploring your ambitions and aesthetic vision. Through our introductory process, we ensure our studio is the perfect fit to elevate your brand.",
+        },
+        {
+          title: "II. The Client Lounge",
+          text: "Upon official agreement, you receive access to a private, beautifully organized digital portal. This is your personal concierge desk for the project, housing your timeline, inspirations, and key documents in one effortless space. Expect a few tangible surprises along the way.",
+        },
+        {
+          title: "III. Narrative & Visual Direction",
+          text: "A striking interface means nothing without a compelling story. We meticulously craft your brand's narrative first, setting the foundation for high-fidelity visual prototyping and timeless typography.",
+        },
+        {
+          title: "IV. The Craft & Sea Trials",
+          text: "Once the design earns your absolute approval, our studio begins the architectural build. Every motion and interaction is coded to perfection. Finally, your site undergoes extensive Sea Trials—our rigorous quality assurance phase—ensuring a flawless, high-performance launch.",
+        },
+      ];
+
+      const titleContainer = document.getElementById("workflow_title");
+      const textContainer = document.getElementById("workflow_text");
+
+      titleContainer.innerHTML = "";
+      textContainer.innerHTML = "";
+
+      const titleSplits = [];
+      const textSplits = [];
+
+      workflowContent.forEach((step, index) => {
+        const titleEl = document.createElement("div");
+        titleEl.textContent = step.title;
+        gsap.set(titleEl, {
+          position: index === 0 ? "relative" : "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+        });
+        titleContainer.appendChild(titleEl);
+
+        const textEl = document.createElement("div");
+        textEl.textContent = step.text;
+        gsap.set(textEl, {
+          position: index === 0 ? "relative" : "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+        });
+        textContainer.appendChild(textEl);
+
+        titleSplits.push(new SplitText(titleEl, { type: "words, chars" }));
+        textSplits.push(new SplitText(textEl, { type: "words, chars" }));
+
+        if (index !== 0) {
+          gsap.set([titleSplits[index].chars, textSplits[index].chars], {
+            opacity: 0,
+            scale: 1.3,
+          });
+        }
+      });
+
+      const workflowTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".workflow",
+          start: "center center",
+          end: "+=3700",
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      workflowContent.forEach((_, i) => {
+        if (i < workflowContent.length - 1) {
+          workflowTl
+            .to(titleSplits[i].chars, {
+              opacity: 0,
+              scale: 1.3,
+              stagger: { amount: 0.3, from: "left" },
+            })
+            .to(
+              textSplits[i].chars,
+              {
+                opacity: 0,
+                scale: 1.3,
+                stagger: { amount: 0.3, from: "left" },
+              },
+              "<",
+            )
+            .to(titleSplits[i + 1].chars, {
+              opacity: 1,
+              scale: 1,
+              stagger: { amount: 0.3, from: "left" },
+            })
+            .to(
+              textSplits[i + 1].chars,
+              { opacity: 1, scale: 1, stagger: { amount: 0.3, from: "left" } },
+              "<",
+            );
+        }
+      });
+
+      // --- SERVICES SECTION ---
       gsap
         .timeline({
           scrollTrigger: {
@@ -177,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .to(".case3", { scale: 1, rotate: 0 }, "<");
 
-      // Desktop Works
+      // --- WORKS SECTION ---
       gsap
         .timeline({
           scrollTrigger: {
@@ -222,7 +378,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Common Footer Animation
   gsap.to(".footer-overlay", {
     scrollTrigger: { trigger: ".about", start: "center center", scrub: true },
     rotateY: 0,
@@ -231,7 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
     y: 0,
   });
 
-  // Smooth Scroll Anchor Handling
   document.querySelectorAll(".scroll-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();

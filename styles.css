@@ -19,7 +19,7 @@ html {
 body {
   background-color: var(--dark-color);
   color: var(--white);
-  font-family: "Figtree", sans-serif;
+  font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -33,7 +33,6 @@ body {
 
 .italic {
   font-family: "Bodoni Moda", serif;
-  font-style: italic;
   font-weight: 700;
 }
 
@@ -76,22 +75,6 @@ body {
   width: 100%;
   display: none;
 }
-
-/*.rect1 {
-  grid-area: rect1;
-}
-
-.rect2 {
-  grid-area: rect2;
-}
-
-.rect3 {
-  grid-area: rect3;
-}
-
-.rect4 {
-  grid-area: rect4;
-}*/
 
 .rectMorph {
   display: none;
@@ -167,64 +150,124 @@ body {
   color: var(--white);
 }
 
-.hero-animated-text {
-  opacity: 0;
-}
-
-header {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  right: 0;
-  padding: 3.7rem 4rem;
-  height: 3rem;
-  width: calc(100% - 14rem);
-  z-index: 3;
-}
-
-header ul {
-  display: flex;
-  gap: 0.7rem;
-}
-
-header ul li a {
-  font-size: 1.7rem;
-  color: var(--white);
-  cursor: pointer;
-}
-
-h1 {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 700;
-  font-size: 13rem;
-}
-
-h2 {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.hero-text {
-  position: absolute;
-  bottom: 3rem;
-  right: 4rem;
-  font-size: 1.7rem;
-}
-
-.hero-scroll-noticing {
-  position: absolute;
-  bottom: 3rem;
-  left: 4rem;
-  font-size: 1.7rem;
-}
-
 .hero,
+.workflow,
 .services,
 .works {
   position: relative;
   height: 100dvh;
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "title       title       title       title          button"
+    ".           .           .           .              ."
+    "phrase      .           .           .              advice"
+    ".           experience  .           .              slogan";
+  gap: 2.3rem;
+  padding: 2.3rem;
+  align-items: end;
+  font-size: 1.7rem;
+}
+
+h1 {
+  grid-area: title;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 200;
+  font-size: 17rem;
+  line-height: 100px;
+  text-wrap: nowrap;
+}
+
+h2 {
+  font-family: "Bodoni Moda", serif;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+button.enquire {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  grid-area: button;
+  display: flex;
+  justify-self: end;
+  background-color: var(--white);
+  color: var(--dark-color);
+  border: none;
+  outline: none;
+  padding: 1.3rem;
+  letter-spacing: 7%;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+.hero-text {
+  grid-area: phrase;
+}
+
+.hero-scroll-advice {
+  grid-area: advice;
+  text-align: right;
+}
+
+span.hero-experience {
+  grid-area: experience;
+}
+
+.hero-slogan {
+  grid-area: slogan;
+  text-align: right;
+}
+
+.hero svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.workflow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    ".           title       title       title          title  "
+    ".           .           .           .              .      "
+    ".           .           .           text           text   "
+    ".           .           .           .              .      ";
+  gap: 2.3rem;
+  padding: 2.3rem;
+  align-items: end;
+  justify-items: end;
+  font-size: 1.7rem;
+  text-align: right;
+}
+
+.workflow-title {
+  position: relative;
+  grid-area: title;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 200;
+  font-size: 7rem;
+  text-wrap: balance !important;
+  line-height: 1.1;
+  line-height: 100px;
+  text-wrap: nowrap;
+}
+
+.workflow-text {
+  position: relative;
+  grid-area: text;
+  width: 70%;
 }
 
 .services {
