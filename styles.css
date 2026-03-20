@@ -380,6 +380,17 @@ h2 {
   transform-origin: center center;
 }
 
+.work-case3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.work-case3 span {
+  font-size: 3rem;
+  color: var(--dark-color);
+}
+
 .about {
   padding: 7rem;
   align-items: start;
