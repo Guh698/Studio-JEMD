@@ -11,8 +11,8 @@ html {
 }
 
 :root {
-  --white: #f9f7e0ff;
-  --dark-color: #040422ff;
+  --white: #040422ff;
+  --dark-color: #f9f7e0ff;
   --white-grey: #828696;
 }
 
