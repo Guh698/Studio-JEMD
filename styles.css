@@ -535,6 +535,11 @@ footer svg {
     display: none;
   }
 
+  .fixed-logo {
+    top: 2rem;
+    left: 2rem;
+  }
+
   h1 {
     font-size: 4rem;
   }
@@ -548,6 +553,13 @@ footer svg {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+
+  .hero-text {
+    bottom: 2rem;
+    left: 4rem;
+    width: 50%;
+    text-align: left;
   }
 
   .services {
