@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // 4. Hover Effects with Revert cleanup
   function initHoverEffects() {
     const links = document.querySelectorAll(".link");
     const splits = [];
@@ -145,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return () => splits.forEach((s) => s.revert());
   }
 
-  // 5. Execution & Responsive Logic
   smoother.paused(true);
   footerWordAnimation();
 
@@ -154,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
       runOpening(false);
       const cleanup = initHoverEffects();
 
-      // Desktop Services (using function-based values for resize safety)
       gsap
         .timeline({
           scrollTrigger: {
