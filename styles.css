@@ -536,8 +536,8 @@ footer svg {
   }
 
   .fixed-logo {
-    top: 2rem;
-    left: 2rem;
+    top: 3rem;
+    left: 3rem;
   }
 
   h1 {
@@ -556,8 +556,8 @@ footer svg {
   }
 
   .hero-text {
-    bottom: 2rem;
-    left: 4rem;
+    bottom: 3rem;
+    left: 3rem;
     width: 50%;
     text-align: left;
   }
