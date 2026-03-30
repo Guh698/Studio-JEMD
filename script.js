@@ -7,7 +7,6 @@ gsap.registerPlugin(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Initialize Smoother
   const smoother = ScrollSmoother.create({
     wrapper: "#smooth-wrapper",
     content: "#smooth-content",
@@ -18,12 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const pauseScroll = () => cleaner(true);
   const resumeScroll = () => smoother.paused(false);
 
-  // 2. Consolidated Opening (Dry & Clean)
   function runOpening(isMobile) {
     const tl = gsap.timeline({
       onComplete: () => {
         resumeScroll();
-        ScrollTrigger.refresh(); // Crucial for layout accuracy
+        ScrollTrigger.refresh();
       },
     });
 
@@ -97,26 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
   }
 
-  // 3. Optimized Footer Marquee
-  function footerWordAnimation() {
-    let footerTimeline = gsap.timeline({ repeat: -1 });
-
-    footerTimeline.to(".first-footer-svg", {
-      x: "-117%",
-      ease: "none",
-      duration: 7,
-    });
-    footerTimeline.to(
-      ".second-footer-svg",
-      {
-        x: "0",
-        ease: "none",
-        duration: 7,
-      },
-      "<",
-    );
-  }
-
   function initHoverEffects() {
     const links = document.querySelectorAll(".link");
     const splits = [];
@@ -145,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   smoother.paused(true);
-  footerWordAnimation();
 
   ScrollTrigger.matchMedia({
     "(min-width: 1024px)": function () {
@@ -174,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .to(".case3", { scale: 1, rotate: 0 }, "<");
 
-      // Desktop Works
       gsap
         .timeline({
           scrollTrigger: {
@@ -219,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Common Footer Animation
   gsap.to(".footer-overlay", {
     scrollTrigger: { trigger: ".about", start: "center center", scrub: true },
     rotateY: 0,
@@ -228,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
     y: 0,
   });
 
-  // Smooth Scroll Anchor Handling
   document.querySelectorAll(".scroll-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
